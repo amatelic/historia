@@ -1,0 +1,32 @@
+{
+  "name": "@gdo/historia",
+  "version": "0.0.1",
+  "description": "Puppeter abstraction for easier working",
+  "main": "./build/index.js",
+  "types": "./build/index.d.ts",
+  "scripts": {
+    "prepare": "npm run tsc::build",
+    "tsc::build": "tsc",
+    "tsc::watch": "tsc -w",
+    "test": "jest",
+    "unpublish::local": "npm unpublish @gdo/historia -f",
+    "publish::local": "npm publish --registry http://localhost:4873"
+  },
+  "files": [
+    "build/**/*"
+  ],
+  "keywords": ["puppeter", "web", "image"],
+  "author": "Anže Matelič<amatelic93@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "puppeteer": "^1.12.2"
+  },
+  "devDependencies": {
+    "@types/jest": "^23.3.13",
+    "@types/node": "^10.12.18",
+    "@types/puppeteer": "^1.12.1",
+    "jest": "^23.6.0",
+    "ts-jest": "^23.10.5",
+    "typescript": "^3.2.4"
+  }
+}
