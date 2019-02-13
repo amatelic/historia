@@ -1,4 +1,3 @@
-import * as puppeteer from 'puppeteer';
 import PuppeterURL from './url';
 import PuppeterHTML from './html';
 

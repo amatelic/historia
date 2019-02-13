@@ -2,6 +2,7 @@ import * as puppeteer from 'puppeteer';
 
 interface PDFArguments {
     path?: string;
+    printBackground? : boolean;
     margin?: {
         top: number,
         right: number,
@@ -46,7 +47,11 @@ export default class Pdf {
         return this;
     }
 
-    render(callback: (config: PDFArguments) => Promise<any>): Promise<any> {
-        return callback(this._config);
+    render(callback?: (config: PDFArguments) => Promise<any>): Promise<any> {
+        if (callback) {
+            return callback(this._config);
+        } else {
+            return Promise.resolve();
+        }
     }
 }

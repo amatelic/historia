@@ -66,7 +66,7 @@ export default class PuppeterBase {
                 }
 
                 const pdf = await page.pdf(Object.assign({}, config,
-                    { path, format: this._output as any }
+                    { path, format: this._output as any, printBackground: true }
                 ));
                 
                 await browser.close();
