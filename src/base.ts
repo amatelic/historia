@@ -1,31 +1,11 @@
 import { HistoriaArgs } from "./index";
 import * as puppeteer from 'puppeteer';
 import Pdf from './pdf';
-
-
-export class PuppeterFormats {
-    static LETTER: 'Letter';
-    static LEGAL: 'Legal';
-    static TABLOID: 'Tabloid';
-    static LEDGER: 'Ledger';
-    static A0: 'A0';
-    static A1: 'A1';
-    static A2: 'A2';
-    static A3: 'A3';
-    static A4: 'A4';
-    static A5: 'A5';
-    static A6: 'A6';
-}
-
-type imageTypes = 'jpeg' | 'png';
-
-interface Viewport {
-    width: number,
-    height: number,
-}
+import { Viewport, waitUntil, imageTypes } from "./types";
 
 export default class PuppeterBase {
     protected _viewPort: Viewport;
+    protected _waitUntil: waitUntil = 'load';
     protected _output: string = 'A4';
 
     constructor(protected config: HistoriaArgs) {}
@@ -38,6 +18,12 @@ export default class PuppeterBase {
         } catch (error) {
             throw error;
         }
+    }
+
+
+    waitUntil(waitUntil: waitUntil): PuppeterBase {
+        this._waitUntil = waitUntil;
+        return this;
     }
 
     setViewPort(width: number, height: number): PuppeterBase {

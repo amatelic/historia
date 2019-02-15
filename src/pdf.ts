@@ -1,19 +1,4 @@
-import * as puppeteer from 'puppeteer';
-
-interface PDFArguments {
-    path?: string;
-    printBackground? : boolean;
-    margin?: {
-        top: number,
-        right: number,
-        bottom: number;
-        left: number;
-    };
-    headerTemplate?: string;
-    footerTemplate?: string;
-    landscape?: boolean;
-    displayHeaderFooter?: boolean;
-}
+import { PDFArguments } from "./types";
 
 export default class Pdf {
 
@@ -47,9 +32,13 @@ export default class Pdf {
         return this;
     }
 
+    getConfig(): PDFArguments {
+        return this._config
+    }
+
     render(callback?: (config: PDFArguments) => Promise<any>): Promise<any> {
         if (callback) {
-            return callback(this._config);
+            return callback(this.getConfig());
         } else {
             return Promise.resolve();
         }
