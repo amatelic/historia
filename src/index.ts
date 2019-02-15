@@ -5,6 +5,7 @@ export interface HistoriaArgs {
     headless?: boolean;
     slowMO?: number;
     devtools?: boolean;
+    args?: string[]
 }
 
 export default class Historia {

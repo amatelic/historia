@@ -11,7 +11,7 @@ export default class PuppeterHTML extends PuppeterBase {
     protected async generatePage(): Promise<[puppeteer.Browser, puppeteer.Page]> {
         try {
             const [ browser, page ] = await super.generatePage();
-            await page.setContent(this.html, { waitUntil: 'load' });
+            await page.setContent(this.html, { waitUntil: this._waitUntil });
             return [browser, page];     
         } catch (error) {
             throw error;

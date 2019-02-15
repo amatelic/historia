@@ -20,6 +20,18 @@ export default class PuppeterBase {
         }
     }
 
+    public getConfig(): any {
+        return {
+            viewPort: this._viewPort,
+            waitUntil: this._waitUntil,
+            output: this._output
+        };
+    }
+
+    public hasViewPort(): Boolean {
+        return !!this._viewPort;
+    }
+
 
     waitUntil(waitUntil: waitUntil): PuppeterBase {
         this._waitUntil = waitUntil;
@@ -76,7 +88,7 @@ export default class PuppeterBase {
 
             const [browser, page] = await this.generatePage();
 
-            if (this._viewPort) {
+            if (this.hasViewPort()) {
                 page.setViewport(this._viewPort);
             }
 
