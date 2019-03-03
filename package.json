@@ -9,13 +9,18 @@
     "tsc::build": "tsc",
     "tsc::watch": "tsc -w",
     "test": "jest",
+    "doc": "./node_modules/.bin/typedoc --options typedoc.js",
     "unpublish::local": "npm unpublish @gdo/historia -f",
     "publish::local": "npm publish --registry http://localhost:4873"
   },
   "files": [
     "build/**/*"
   ],
-  "keywords": ["puppeter", "web", "image"],
+  "keywords": [
+    "puppeter",
+    "web",
+    "image"
+  ],
   "author": "Anže Matelič<amatelic93@gmail.com>",
   "license": "ISC",
   "dependencies": {
@@ -27,6 +32,7 @@
     "@types/puppeteer": "^1.12.1",
     "jest": "^23.6.0",
     "ts-jest": "^23.10.5",
+    "typedoc": "^0.14.2",
     "typescript": "^3.2.4"
   }
 }
