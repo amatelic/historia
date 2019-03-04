@@ -1,4 +1,5 @@
 import Pdf from "../pdf";
+import { waitUntil } from "../types";
 
 
 describe('Testing pdf class', () => {
@@ -11,7 +12,15 @@ describe('Testing pdf class', () => {
             }
         };
 
-        const pdf = new Pdf();
+        const viewport = {
+            _viewPort: undefined,
+            _waitUntil: 'load' as waitUntil,
+            _output: 'A4'
+        };
+
+        const promiseMock: () => Promise<any> = () => Promise.resolve();
+
+        const pdf = new Pdf('/path', promiseMock, viewport);
 
         pdf.setMargin(50, 50, 10, 250);
 

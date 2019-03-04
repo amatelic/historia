@@ -5,7 +5,7 @@ describe('Testing base class', () => {
 
     it('Set configuration for margin', () => {
 
-        const base = new PuppeterBase({});
+        const base = new PuppeterBase();
 
         base.setViewPort(500, 400);
 
