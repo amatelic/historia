@@ -21,10 +21,10 @@ export type imageTypes =  'jpeg' | 'png';
 
 export type waitUntil = 'load' | 'domcontentloaded' | 'networkidle0' | 'networkidle2';
 
-export interface Viewport {
+export type Viewport = {
     width: number,
     height: number,
-}
+} | undefined;
 
 export interface PDFArguments {
     path?: string;

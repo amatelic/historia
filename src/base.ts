@@ -3,16 +3,25 @@ import * as puppeteer from 'puppeteer';
 import Pdf from './pdf';
 import { Viewport, waitUntil, imageTypes } from "./types";
 
-export default class PuppeterBase {
-    protected _viewPort: Viewport;
-    protected _waitUntil: waitUntil = 'load';
-    protected _output: string = 'A4';
+export interface PuppeterBaseConfig {
+    _viewPort?: Viewport;
+    _waitUntil: waitUntil;
+    _output: string ;  
+}
 
-    constructor(protected config: HistoriaArgs) {}
+export default class PuppeterBase {
+    protected config: PuppeterBaseConfig 
+
+    constructor(protected puppeterConfig: HistoriaArgs = {}) {
+        this.config = {
+            _waitUntil: 'load',
+            _output: 'A4',  
+        };
+    }
 
     protected async generatePage(): Promise<[puppeteer.Browser, puppeteer.Page]> {
         try {
-            const browser = await puppeteer.launch(this.config);
+            const browser = await puppeteer.launch(this.puppeterConfig);
             const page = await browser.newPage();
             return [browser, page];
         } catch (error) {
@@ -22,25 +31,25 @@ export default class PuppeterBase {
 
     public getConfig(): any {
         return {
-            viewPort: this._viewPort,
-            waitUntil: this._waitUntil,
-            output: this._output
+            viewPort: this.config._viewPort,
+            waitUntil: this.config._waitUntil,
+            output: this.config._output
         };
     }
 
     public hasViewPort(): Boolean {
-        return !!this._viewPort;
+        return !!this.config._viewPort;
     }
 
 
     waitUntil(waitUntil: waitUntil): PuppeterBase {
-        this._waitUntil = waitUntil;
+        this.config._waitUntil = waitUntil;
         return this;
     }
 
     setViewPort(width: number, height: number): PuppeterBase {
         
-        this._viewPort = {
+        this.config._viewPort = {
             width, height
         };
 
@@ -48,38 +57,18 @@ export default class PuppeterBase {
     }
 
     setOutputView(format: string): PuppeterBase {
-        this._output = format;
+        this.config._output = format;
         return this;
     }
 
 
     pdf(path: string): Pdf {
-        const callback = async (config: any): Promise<any> => {
-            try {
 
-                const [browser, page] = await this.generatePage();
+        const baseConfig = Object.assign({}, this.config);
+        const instance = () => this.generatePage();
 
-                if (this._viewPort) {
-                    page.setViewport(this._viewPort);
-                }
-
-                const pdf = await page.pdf(Object.assign({}, config,
-                    { path, format: this._output as any, printBackground: true }
-                ));
+        const pdf = new Pdf(path, instance, baseConfig);
                 
-                await browser.close();
-
-                return pdf;
-
-            } catch (error) {
-                throw error;
-            }
-        }
-
-        const pdf = new Pdf();
-        
-        pdf.render = pdf.render.bind(pdf, callback)
-        
         return pdf; 
     }
 
@@ -88,8 +77,8 @@ export default class PuppeterBase {
 
             const [browser, page] = await this.generatePage();
 
-            if (this.hasViewPort()) {
-                page.setViewport(this._viewPort);
+            if (!!this.config._viewPort) {
+                page.setViewport(this.config._viewPort);
             }
 
             const screenshot = await page.screenshot({ path, type });
@@ -107,8 +96,8 @@ export default class PuppeterBase {
 
             const [browser, page] = await this.generatePage();
 
-            if (this._viewPort) {
-                page.setViewport(this._viewPort);
+            if (this.config._viewPort) {
+                page.setViewport(this.config._viewPort);
             }
 
             const screenshot = await page.screenshot({ path, type, 
