@@ -1,14 +1,16 @@
-import PuppeterURL from './url';
-import PuppeterHTML from './html';
+import PuppeterURL from './input/url';
+import PuppeterHTML from './input/html';
 
+// Implement 
 export interface HistoriaArgs {
-    headless?: boolean;
     slowMO?: number;
     devtools?: boolean;
-    args?: string[]
+    args?: string[];
+    headless: boolean;
+    executablePath: string,
 }
 
-export default class Historia {
+class Historia {
     constructor(private config: HistoriaArgs) {}
 
     html(html: string): PuppeterHTML {
@@ -21,3 +23,29 @@ export default class Historia {
     }
 
 }
+
+
+
+
+const HistoriaFactory = () => {
+
+    switch (process.platform)
+    {
+        case 'darwin': 
+            return new Historia({
+                headless: true,
+                executablePath: '/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome',
+            })
+        case 'linux': 
+            // execute command for retriving path to chrome -> which google-chrome-stable
+            return new Historia({
+                headless: true,
+                executablePath: '',
+            })
+        default: 
+            throw new Error(`${process.platform} is not supported`);
+
+    }
+}
+
+export default HistoriaFactory;

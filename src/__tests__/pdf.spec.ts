@@ -1,4 +1,4 @@
-import Pdf from "../pdf";
+import Pdf from "../outputs/pdf";
 import { waitUntil } from "../types";
 
 

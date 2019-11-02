@@ -1,7 +1,9 @@
 import { HistoriaArgs } from "./index";
-import * as puppeteer from 'puppeteer';
-import Pdf from './pdf';
-import { Viewport, waitUntil, imageTypes } from "./types";
+import * as puppeteer from 'puppeteer-core';
+import Pdf from './outputs/pdf';
+import Image from './outputs/image';
+
+import { Viewport, waitUntil, imageTypes} from "./types";
 
 export interface PuppeterBaseConfig {
     _viewPort?: Viewport;
@@ -12,7 +14,7 @@ export interface PuppeterBaseConfig {
 export default class PuppeterBase {
     protected config: PuppeterBaseConfig 
 
-    constructor(protected puppeterConfig: HistoriaArgs = {}) {
+    constructor(protected puppeterConfig?: HistoriaArgs) {
         this.config = {
             _waitUntil: 'load',
             _output: 'A4',  
@@ -62,7 +64,7 @@ export default class PuppeterBase {
     }
 
 
-    pdf(path: string): Pdf {
+    pdf(path: string, format: string): Pdf {
 
         const baseConfig = Object.assign({}, this.config);
         const instance = () => this.generatePage();
@@ -72,47 +74,12 @@ export default class PuppeterBase {
         return pdf; 
     }
 
-    async image(path: string, type: imageTypes = 'jpeg'): Promise<Buffer> {
-        try {
+    image(pathFile: string): Image {
 
-            const [browser, page] = await this.generatePage();
+        const baseConfig = Object.assign({}, this.config);
+        const instance = () => this.generatePage();
 
-            if (!!this.config._viewPort) {
-                page.setViewport(this.config._viewPort);
-            }
-
-            const screenshot = await page.screenshot({ path, type });
-            await browser.close();
-
-            return screenshot;
-
-        } catch (error) {
-            throw error;
-        }
-    }
-
-    async clip(path: string, x: number, y: number, width: number, height: number, type: imageTypes = 'jpeg'): Promise<Buffer> {
-        try {
-
-            const [browser, page] = await this.generatePage();
-
-            if (this.config._viewPort) {
-                page.setViewport(this.config._viewPort);
-            }
-
-            const screenshot = await page.screenshot({ path, type, 
-                clip: {
-                    x, y, width, height
-                } 
-            });
-
-            await browser.close();
-
-            return screenshot;
-
-        } catch (error) {
-            throw error;
-        }
+        return new Image(pathFile, instance, baseConfig);                
     }
 
 }

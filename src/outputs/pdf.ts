@@ -1,6 +1,6 @@
-import { PDFArguments } from "./types";
-import PuppeterBase, { PuppeterBaseConfig } from "./base";
-import * as puppeteer from 'puppeteer';
+import { PDFArguments } from "../types";
+import { PuppeterBaseConfig } from "../base";
+import * as puppeteer from 'puppeteer-core';
 
 
 type PuppeterPromise = () => Promise<[puppeteer.Browser, puppeteer.Page]>;
@@ -41,7 +41,7 @@ export default class Pdf {
         return this._config
     }
 
-    async render(callback?: (config: PDFArguments) => Promise<any>): Promise<any> {
+    async render(): Promise<any> {
         try {
 
             const [browser, page] = await this.puppeterPromise();

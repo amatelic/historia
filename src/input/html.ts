@@ -1,6 +1,6 @@
-import { HistoriaArgs } from "./index";
+import { HistoriaArgs } from "../index";
 import * as puppeteer from 'puppeteer';
-import PuppeterBase from "./base";
+import PuppeterBase from "../base";
 
 export default class PuppeterHTML extends PuppeterBase {
     constructor(protected puppeterConfig: HistoriaArgs, private html: string) {
