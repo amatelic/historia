@@ -13,6 +13,9 @@
     "unpublish::local": "npm unpublish @gdo/historia -f",
     "publish::local": "npm publish --registry http://localhost:4873"
   },
+  "bin": {
+    "historia": "./build/index.js"
+  },
   "files": [
     "build/**/*"
   ],
