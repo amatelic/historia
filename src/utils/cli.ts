@@ -19,3 +19,13 @@ export default function args(state: { [key:string]: any }) {
 
     }, state);
 }
+
+
+export const CLI_DEFAULT_ARGS = {
+    type: 'url',
+    url: '',
+    name: Date.now().toString(16) + Math.random().toString(16) + '0',
+    output: 'pdf',
+    waitUntil: 'networkidle2',
+    lazy: true
+};

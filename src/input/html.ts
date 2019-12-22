@@ -1,4 +1,4 @@
-import { HistoriaArgs } from "../index";
+import { HistoriaArgs } from "../utils/types";
 import * as puppeteer from 'puppeteer';
 import PuppeterBase from "../base";
 

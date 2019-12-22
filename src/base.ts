@@ -1,9 +1,7 @@
-import { HistoriaArgs } from "./index";
 import * as puppeteer from 'puppeteer-core';
 import Pdf from './outputs/pdf';
 import Image from './outputs/image';
-
-import { Viewport, waitUntil, imageTypes} from "./types";
+import { Viewport, waitUntil, HistoriaArgs } from "./utils/types";
 
 export interface PuppeterBaseConfig {
     _viewPort?: Viewport;

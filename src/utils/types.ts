@@ -40,3 +40,17 @@ export interface PDFArguments {
     landscape?: boolean;
     displayHeaderFooter?: boolean;
 }
+
+export interface HistoriaArgs {
+    slowMO?: number;
+    devtools?: boolean;
+    args?: string[];
+    headless: boolean;
+    executablePath: string,
+    meta?: {
+        lazy: boolean;
+        timeout: number, 
+    }
+}
+
+// export interface Histori
