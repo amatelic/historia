@@ -1,16 +1,11 @@
 import * as puppeteer from 'puppeteer-core';
 import Pdf from './outputs/pdf';
 import Image from './outputs/image';
-import { Viewport, waitUntil, HistoriaArgs } from "./utils/types";
-
-export interface PuppeterBaseConfig {
-    _viewPort?: Viewport;
-    _waitUntil: waitUntil;
-    _output: string ;  
-}
+import Html from './outputs/html';
+import { waitUntil, HistoriaArgs, PuppeterBaseConfig } from "./utils/types";
 
 export default class PuppeterBase {
-    protected config: PuppeterBaseConfig 
+    protected config: PuppeterBaseConfig;
 
     constructor(protected puppeterConfig?: HistoriaArgs) {
         this.config = {
@@ -62,7 +57,7 @@ export default class PuppeterBase {
     }
 
 
-    pdf(path: string, format: string): Pdf {
+    pdf(path: string): Pdf {
 
         const baseConfig = Object.assign({}, this.config);
         const instance = () => this.generatePage();

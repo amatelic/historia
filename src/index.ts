@@ -51,9 +51,11 @@ if (require.main === module) {
             if (!config.url) throw new Error('Url missing');
 
             const historia = (HistoriaFactory()).url(config.url);
+
+            // await historia.html().download();
             
             if (config.output == 'pdf') {
-                await historia.pdf(`./${config.name}.pdf`, 'A4').render();
+                await historia.pdf(`./${config.name}.pdf`).render();
             } else {
                 await historia.image(`./${config.name}.${config.output}`);
             }   

@@ -1,12 +1,12 @@
 {
   "name": "@gdo/historia",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Puppeter abstraction for easier working",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
   "scripts": {
     "prepare": "npm run tsc::build",
-    "tsc::build": "tsc && node ./build/index.js",
+    "tsc::build": "tsc",
     "tsc::watch": "tsc -w",
     "test": "jest",
     "doc": "./node_modules/.bin/typedoc --options typedoc.js",

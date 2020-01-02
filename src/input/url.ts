@@ -1,6 +1,8 @@
 import { HistoriaArgs } from "../utils/types";
 import * as puppeteer from 'puppeteer';
 import PuppeterBase from "../base";
+import Html from "../outputs/html";
+import * as url from 'url';
 
 export default class PuppeterURL extends PuppeterBase {
     constructor(protected puppeterConfig: HistoriaArgs, private url: string) {
@@ -17,11 +19,10 @@ export default class PuppeterURL extends PuppeterBase {
         }
     }
 
-    async download(url: string): Promise<any> {
+    async download(): Promise<any> {
         try {
             const [browser, page] = await this.generatePage();
-            await page.goto(url);
-
+            
             let bodyHTML = await page.evaluate(() => document.body.innerHTML);
 
             await browser.close();
@@ -30,5 +31,17 @@ export default class PuppeterURL extends PuppeterBase {
         } catch (error) {
             throw error;
         }
+    }
+
+    html(): Html {
+        const instance = () => this.generatePage();
+        const { hostname } = url.parse(this.url);
+
+        if (!hostname) {
+            throw new Error('Hostname name not provided');
+        }
+
+        console.log(hostname);
+        return new Html(hostname, instance);      
     }
 }

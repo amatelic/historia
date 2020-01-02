@@ -25,7 +25,7 @@ yarn add @gdo/historia
 
 General description of how to use the module with basic example.  
 
-## Examples
+## Example (using like an npm module)
 
 Basic example of creating an pdf file with url
 ```nodejs
@@ -45,11 +45,17 @@ Basic example of creating an img file with html
 ```nodejs
 
 (async () => {
-    await (new Historia()).url(`<h1>Hello World</h1>`)
+    await (new Historia()).html(`<h1>Hello World</h1>`)
         .setViewPort(2200, 1200)
         .image('test.jpeg', 'jpeg');
 })();
 
+```
+
+## Example (using like cli)
+```
+historia http://example.com
+historia type=url http://example.com output=jpeg
 ```
 
 ## Tests
@@ -65,6 +71,15 @@ npm run doc
 ```
 
 
+### TODO 
+ - [ x ] Add support for generating pdf
+ - [ x ] Add support for generating image 
+ - [   ] Add support for generating html 
+
+
+### TO FIX
+    - Find solution for rendering pages with lazy image loading (example: medium);
+    
 ## Contributors
 
 Author [Anže Matelič](https://github.com/amatelic)

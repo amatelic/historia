@@ -1,5 +1,4 @@
-import { PDFArguments, PuppeteerImageTypes } from "../utils/types";
-import { PuppeterBaseConfig } from "../base";
+import {  PuppeteerImageTypes, PuppeterBaseConfig } from "../utils/types";
 import * as puppeteer from 'puppeteer-core';
 import * as path from 'path';
 

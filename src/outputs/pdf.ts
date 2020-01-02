@@ -1,7 +1,5 @@
-import { PDFArguments } from "../types";
-import { PuppeterBaseConfig } from "../base";
+import { PDFArguments, PuppeterBaseConfig } from "../utils/types";
 import * as puppeteer from 'puppeteer-core';
-
 
 type PuppeterPromise = () => Promise<[puppeteer.Browser, puppeteer.Page]>;
 

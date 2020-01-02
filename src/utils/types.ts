@@ -1,3 +1,5 @@
+import * as puppeteer from 'puppeteer-core';
+
 export class PuppeteerFormats {
     static LETTER = 'Letter';
     static LEGAL = 'Legal';
@@ -52,5 +54,13 @@ export interface HistoriaArgs {
         timeout: number, 
     }
 }
+
+export interface PuppeterBaseConfig {
+    _viewPort?: Viewport;
+    _waitUntil: waitUntil;
+    _output: string ;  
+}
+
+export type PuppeterPromise = () => Promise<[puppeteer.Browser, puppeteer.Page]>;
 
 // export interface Histori
