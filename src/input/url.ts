@@ -41,7 +41,6 @@ export default class PuppeterURL extends PuppeterBase {
             throw new Error('Hostname name not provided');
         }
 
-        console.log(hostname);
         return new Html(hostname, instance);      
     }
 }

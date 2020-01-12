@@ -1,4 +1,5 @@
-import * as puppeteer from 'puppeteer-core';
+// import * as puppeteer from 'puppeteer-core';
+import * as puppeteer from 'puppeteer';
 import Pdf from './outputs/pdf';
 import Image from './outputs/image';
 import Html from './outputs/html';

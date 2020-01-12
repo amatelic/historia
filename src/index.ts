@@ -1,11 +1,10 @@
 #!/usr/bin/env node
 import PuppeterURL from './input/url';
 import PuppeterHTML from './input/html';
-import args, { CLI_DEFAULT_ARGS } from './utils/cli';
-import { HistoriaArgs } from './utils/types';
+import cli, { CLI_DEFAULT_ARGS } from './utils/cli';
 
 class Historia {
-    constructor(private config: HistoriaArgs) {}
+    constructor(private config: any = ({} as any)) {}
 
     html(html: string): PuppeterHTML {
         return new PuppeterHTML(this.config, html);
@@ -31,37 +30,28 @@ const HistoriaFactory = (config = {}) => {
             break;
         default: 
             throw new Error(`${process.platform} is not supported`);
-    }
+    };
 
-    return new Historia({
-        headless: true,
-        meta: state,
-        executablePath,
-    });
+    const data = {
+        // headless: true,
+        // meta: state,
+        // executablePath,
+    } as any;
+
+    return {
+        html: (html: string): PuppeterHTML => new PuppeterHTML(data, html),
+        url: (url: string): PuppeterURL => new PuppeterURL(data, url),
+    };
 }
 
 
 if (require.main === module) {
-    
-    const config = args(CLI_DEFAULT_ARGS);
-
     (async () => {
-        try {
-
-            if (!config.url) throw new Error('Url missing');
-
-            const historia = (HistoriaFactory()).url(config.url);
-
-            // await historia.html().download();
-            
-            if (config.output == 'pdf') {
-                await historia.pdf(`./${config.name}.pdf`).render();
-            } else {
-                await historia.image(`./${config.name}.${config.output}`);
-            }   
-        } catch (error) {
-            process.stderr.write(error.toString());
-        }
+        return cli()
+            .catch((err)  => {
+                console.error(err);
+                process.exit(1);
+            });
     })()
 } else {
     module.exports = HistoriaFactory;
