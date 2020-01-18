@@ -8,27 +8,18 @@ export default class PuppeterHTML extends PuppeterBase {
     }
 
     protected async generatePage(): Promise<[puppeteer.Browser, puppeteer.Page]> {
-        try {
-            const [ browser, page ] = await super.generatePage();
-            await page.setContent(this.htmlTemplate, { waitUntil: this.config._waitUntil });
-            return [browser, page];     
-        } catch (error) {
-            throw error;
-        }
+        const [ browser, page ] = await super.generatePage();
+        await page.setContent(this.htmlTemplate, { waitUntil: this.config._waitUntil });
+        return [browser, page];     
     }
 
     async download(url: string): Promise<any> {
-        try {
-            const [browser, page] = await this.generatePage();
-            await page.goto(url);
+        const [browser, page] = await this.generatePage();
+        await page.goto(url);
 
-            let bodyHTML = await page.evaluate(() => document.body.innerHTML);
+        let bodyHTML = await page.evaluate(() => document.body.innerHTML);
 
-            await browser.close();
-            return bodyHTML;
-
-        } catch (error) {
-            throw error;
-        }
+        await browser.close();
+        return bodyHTML;
     }
 }

@@ -1,21 +1,7 @@
 #!/usr/bin/env node
 import PuppeterURL from './input/url';
 import PuppeterHTML from './input/html';
-import cli, { CLI_DEFAULT_ARGS } from './utils/cli';
-
-class Historia {
-    constructor(private config: any = ({} as any)) {}
-
-    html(html: string): PuppeterHTML {
-        return new PuppeterHTML(this.config, html);
-    }
-
-
-    url(url: string): PuppeterURL {
-        return new PuppeterURL(this.config, url);
-    }
-
-}
+import cli from './utils/cli';
 
 const HistoriaFactory = (config = {}) => {
 

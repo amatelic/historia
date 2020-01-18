@@ -10,7 +10,7 @@ export default class PuppeterBase {
 
     constructor(protected puppeterConfig?: HistoriaArgs) {
         this.config = {
-            _waitUntil: 'load',
+            _waitUntil: 'networkidle2' as any,
             _output: 'A4',  
         };
     }

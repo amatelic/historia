@@ -41,12 +41,10 @@ export default async function cli() {
     if (!config.url) throw new Error('Url missing');
 
     const historia = new PuppeterURL(config, config.url);
-
-    // await historia.html().download();
     
     if (config.output == 'pdf') {
         return await historia.pdf(`./${config.name}.pdf`).render();
-    } else {
-        return await historia.image(`./${config.name}.${config.output}`);
-    }   
+    }
+    
+    return await historia.image(`./${config.name}.${config.output}`);
 }

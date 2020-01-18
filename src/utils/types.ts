@@ -61,6 +61,21 @@ export interface PuppeterBaseConfig {
     _output: string ;  
 }
 
+
+
 export type PuppeterPromise = () => Promise<[puppeteer.Browser, puppeteer.Page]>;
 
-// export interface Histori
+export const pdfDefault = {
+    path: '',
+    printBackground: true,
+    margin: {
+        top: 0,
+        right: 0,
+        bottom: 0,
+        left: 0,
+    },
+    headerTemplate: '',
+    footerTemplate: '',
+    landscape: false,
+    displayHeaderFooter: false,
+}

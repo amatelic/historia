@@ -1,9 +1,6 @@
-import {  PuppeteerImageTypes, PuppeterBaseConfig } from "../utils/types";
-import * as puppeteer from 'puppeteer-core';
+import {  PuppeteerImageTypes, PuppeterBaseConfig, PuppeterPromise } from "../utils/types";
 import * as path from 'path';
 
-
-type PuppeterPromise = () => Promise<[puppeteer.Browser, puppeteer.Page]>;
 
 export default class Image {
     private fullPage = false;
@@ -53,31 +50,24 @@ export default class Image {
 
 
     async clip(x: number, y: number, width: number, height: number): Promise<Buffer> {
-        try {
+        const ext = this.fileExtensionGuard(this.pathFile);
 
+        const [browser, page] = await this.puppeterPromise();
 
-            const ext = this.fileExtensionGuard(this.pathFile);
-
-            const [browser, page] = await this.puppeterPromise();
-
-            if (this.baseConfig._viewPort) {
-                page.setViewport(this.baseConfig._viewPort);
-            }
-
-            const screenshot = await page.screenshot({ 
-                path: this.pathFile, 
-                type: ext as any, 
-                clip: {
-                    x, y, width, height
-                } 
-            });
-
-            await browser.close();
-
-            return screenshot;
-
-        } catch (error) {
-            throw error;
+        if (this.baseConfig._viewPort) {
+            page.setViewport(this.baseConfig._viewPort);
         }
+
+        const screenshot = await page.screenshot({ 
+            path: this.pathFile, 
+            type: ext as any, 
+            clip: {
+                x, y, width, height
+            } 
+        });
+
+        await browser.close();
+
+        return screenshot;
     }
 }

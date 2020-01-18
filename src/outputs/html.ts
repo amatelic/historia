@@ -36,7 +36,6 @@ export default class Html {
 
           if (bufferErr) throw new Error('Problems retriving buffer');
 
-          console.log(path.join(process.cwd(), this.hostname, filename));
           writeFileSyncRecursive(path.join(process.cwd(), this.hostname, filename), buffer);
       }; 
     });

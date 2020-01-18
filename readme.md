@@ -52,11 +52,22 @@ Basic example of creating an img file with html
 
 ```
 
-## Example (using like cli)
+## Example (using cli)
 ```
 historia http://example.com
 historia type=url http://example.com output=jpeg
 ```
+
+#### !Important 
+
+when working with pdf add below css to make the page look identicalys
+
+```css
+
+html {
+      -webkit-print-color-adjust: exact;
+
+}
 
 ## Tests
 

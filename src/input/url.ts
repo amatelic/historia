@@ -10,27 +10,18 @@ export default class PuppeterURL extends PuppeterBase {
     }
 
     protected async generatePage(): Promise<[puppeteer.Browser, puppeteer.Page]> {
-        try {
-            const [ browser, page ] = await super.generatePage();
-            await page.goto(this.url, { waitUntil: this.config._waitUntil });
-            return [browser, page];     
-        } catch (error) {
-            throw error;
-        }
+        const [ browser, page ] = await super.generatePage();
+        await page.goto(this.url, { waitUntil: this.config._waitUntil });
+        return [browser, page];     
     }
 
     async download(): Promise<any> {
-        try {
-            const [browser, page] = await this.generatePage();
-            
-            let bodyHTML = await page.evaluate(() => document.body.innerHTML);
+        const [browser, page] = await this.generatePage();
+        
+        let bodyHTML = await page.evaluate(() => document.body.innerHTML);
 
-            await browser.close();
-            return bodyHTML;
-
-        } catch (error) {
-            throw error;
-        }
+        await browser.close();
+        return bodyHTML;
     }
 
     html(): Html {
@@ -38,7 +29,7 @@ export default class PuppeterURL extends PuppeterBase {
         const { hostname } = url.parse(this.url);
 
         if (!hostname) {
-            throw new Error('Hostname name not provided');
+            throw new Error('Hostname not provided');
         }
 
         return new Html(hostname, instance);      

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Catamaran|VT323&subset=latin-ext,tamil');
+        h1 {
+            font-size: 56px;
+            font-family: 'VT323', monospace;
+        }
+
+        * {
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+            font-family: 'Catamaran', sans-serif;
+            transform: translateZ(0px);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            -webkit-print-color-adjust: exact;
+            -webkit-font-smoothing: auto;
+            -moz-osx-font-smoothing: auto;
+
+        }
+        html {
+            -webkit-print-color-adjust: exact;
+        }
+
+        html,
+        body {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        header {
+            position: relative;
+        }
+
+        header h1 {
+            top: 5px;
+            left: 25px;
+            position: absolute;
+            color: white;
+            z-index: 10;
+        }
+
+        .main-post {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            background: linear-gradient(159deg, #338b82 0, #41c071 61%, #bee329 100%) #338b82;
+        }
+
+        .pattern {
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+        }
+
+        .pattern.pattern-rect {
+            display: grid;
+            grid-gap: 5%;
+            grid-template-rows: repeat(4, 1fr);
+            grid-template-columns: 1fr 2fr 1fr 2fr;
+            transform: translate(15%, 15%) rotate(145deg);
+        }
+
+        .pattern-rect div {
+            background: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+            animation-duration: 2s;
+            animation-delay: 0s;
+            animation-name: scaleRandom;
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+        }
+
+            .pattern-rect div:nth-child(2n) {
+            animation-duration: 2s;
+            animation-delay: 1s;
+        }
+
+        main {
+            display: flex;
+            padding: 5%;
+            flex-direction: column;
+        }
+
+        .address {
+            display: flex;
+            flex: 1;
+            justify-content: space-between
+        }
+
+        .detail {
+            margin-top: 50px;
+        }
+
+        table {
+            margin: 50px 0px;
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.2);
+        }
+
+        thead * {
+            font-weight: bold:
+        }
+
+        tbody {
+
+        }
+
+        tbody > tr {
+            border-top: 2px solid rgba(0, 0, 0, 0.1);
+        }
+
+        tr {
+            display: flex;
+            height: 40px;
+        }
+
+        td {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .price {
+            width: 100%;
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-end;
+        }
+
+        .price > div {
+            width: 200px;
+        }
+
+        .price p,
+        .price b  {
+            line-height: 36px;
+            text-align: right;
+        }
+
+        .price b  {
+            text-align: right;
+            font-size: 20px;
+            padding-left: 60px;
+        }
+
+        hr {
+            height: 2px;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.2);
+            border: none;
+        }
+
+        .more {
+            margin-top: 50px;
+            padding: 0px 5%;
+        }
+            
+    </style>
+</head>
+<body>
+    <header>
+        <h1>{{client.name}}</h1>
+        <div class="main-post">
+            <div class="pattern pattern-rect">
+                <div></div><div></div><div></div><div></div>
+                <div></div><div></div><div></div><div></div>
+                <div></div><div></div><div></div><div></div>            
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="address">
+            <div class="client">
+                <div class="from">
+                    <p>Name: {{ client.name }}</p>
+                    <p>Address: {{ client.address.address }}</p>
+                    <p>Country: {{ client.address.zipCode }} {{ client.address.country }} </p>
+                    <p>Tax id: {{ client.taxId }}</p>
+                    <p>Iban: {{ client.iban }}</p>
+                </div>
+                <div class="detail">
+                    <p>Invoice number: {{invoice.number}}</p>
+                    <p>Date of issue: {{ invoice.invoiceDate }}</p>
+                    <p>Due date: {{ invoice.dueDate }}</p>
+                </div>
+            </div>
+            <div class="customer">
+                <div>
+                    <p>{{ customer.name }}</p>
+                    <p>{{ customer.address.address }}</p>
+                    <p>{{ customer.address.zipCode }} {{customer.address.country }} </p>
+                    <p>{{ customer.taxId }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="items">
+            <table>
+                <thead>
+                    <tr>
+                        <td>id</td>
+                        <td>quantity</td>
+                        <td>description</td>
+                        <td>amount</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#invoice.items}}
+                        <tr>
+                            <td>1</td>
+                            <td>{{ quantity }}</td>
+                            <td>{{ description }}</td>
+                            <td>{{ amount }}</td>
+                        </tr>
+                    {{/invoice.items}}
+                </tbody>
+            </table>
+        </div>
+        <div class="price">
+            <div>
+                <p> SubTotal: {{ invoice.subTotal }} €</p>
+                <p> Tax: {{ invoice.tax }} %</p>
+                <hr/>
+                <b> Total: {{ invoice.total }} €</b>
+            </div>
+        </div>
+        <div class="more">
+
+            {{#more}}
+                <p>{{ value }}</p>
+            {{/more}}
+        </div>
+    </main>
+</body>
+</html>

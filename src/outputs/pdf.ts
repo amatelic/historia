@@ -1,4 +1,4 @@
-import { PDFArguments, PuppeterBaseConfig } from "../utils/types";
+import { PDFArguments, PuppeterBaseConfig, pdfDefault } from "../utils/types";
 import * as puppeteer from 'puppeteer-core';
 
 type PuppeterPromise = () => Promise<[puppeteer.Browser, puppeteer.Page]>;
@@ -8,7 +8,7 @@ export default class Pdf {
     private _config: PDFArguments;
 
     constructor(private path: string, private puppeterPromise: PuppeterPromise, private baseConfig: PuppeterBaseConfig) {
-        this._config = {};
+        this._config = Object.assign({}, pdfDefault);
     }
 
     setMargin(top: number, right: number, bottom: number, left: number): Pdf {
@@ -40,24 +40,22 @@ export default class Pdf {
     }
 
     async render(): Promise<any> {
-        try {
+        const [browser, page] = await this.puppeterPromise();
 
-            const [browser, page] = await this.puppeterPromise();
-
-            if (this.baseConfig._viewPort) {
-                page.setViewport(this.baseConfig._viewPort);
-            }
-
-            const pdf = await page.pdf(Object.assign({}, this._config,
-                { path: this.path, format: this.baseConfig._output as any, printBackground: true }
-            ));
-            
-            await browser.close();
-
-            return pdf;
-
-        } catch (error) {
-            throw error;
+        if (this.baseConfig._viewPort) {
+            page.setViewport(this.baseConfig._viewPort);
         }
+
+        const pdf = await page.pdf(Object.assign({}, this._config,
+            {   
+                path: this.path, 
+                format: 'A4',
+                printBackground: true 
+            }
+        ));
+        
+        await browser.close();
+
+        return pdf;
     }
 }
