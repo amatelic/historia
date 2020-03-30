@@ -2,7 +2,6 @@
 import * as puppeteer from 'puppeteer';
 import Pdf from './outputs/pdf';
 import Image from './outputs/image';
-import Html from './outputs/html';
 import { waitUntil, HistoriaArgs, PuppeterBaseConfig } from "./utils/types";
 
 export default class PuppeterBase {
@@ -10,14 +9,23 @@ export default class PuppeterBase {
 
     constructor(protected puppeterConfig?: HistoriaArgs) {
         this.config = {
-            _waitUntil: 'networkidle2' as any,
+            _waitUntil: ['load', 'networkidle2'] as any,
             _output: 'A4',  
         };
     }
 
     protected async generatePage(): Promise<[puppeteer.Browser, puppeteer.Page]> {
         try {
-            const browser = await puppeteer.launch(this.puppeterConfig);
+            const browser = await puppeteer.launch(
+                // this.puppeterConfig 
+                {
+                    args: [
+                        '--no-sandbox',
+                        '--disable-setuid-sandbox'
+                    ],
+                    headless: true,
+                }
+                );
             const page = await browser.newPage();
             return [browser, page];
         } catch (error) {

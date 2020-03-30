@@ -9,7 +9,7 @@ export default class PuppeterHTML extends PuppeterBase {
 
     protected async generatePage(): Promise<[puppeteer.Browser, puppeteer.Page]> {
         const [ browser, page ] = await super.generatePage();
-        await page.setContent(this.htmlTemplate, { waitUntil: this.config._waitUntil });
+        await page.setContent(this.htmlTemplate);
         return [browser, page];     
     }
 

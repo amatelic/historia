@@ -1,5 +1,5 @@
 import { PDFArguments, PuppeterBaseConfig, pdfDefault } from "../utils/types";
-import * as puppeteer from 'puppeteer-core';
+import * as puppeteer from 'puppeteer';
 
 type PuppeterPromise = () => Promise<[puppeteer.Browser, puppeteer.Page]>;
 
@@ -46,10 +46,14 @@ export default class Pdf {
             page.setViewport(this.baseConfig._viewPort);
         }
 
-        const pdf = await page.pdf(Object.assign({}, this._config,
+        await page.waitFor(5000);
+
+        // await page.emulateMediaType('print');
+
+        const pdf = await page.pdf(Object.assign({},
             {   
                 path: this.path, 
-                format: 'A4',
+                format: 'A4' as any,
                 printBackground: true 
             }
         ));

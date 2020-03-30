@@ -1,12 +1,18 @@
 import Pdf from "../outputs/pdf";
-import { waitUntil } from "../types";
+import { waitUntil } from "../utils/types";
 
 
 describe('Testing pdf class', () => {
 
     it('Set configuration for margin', () => {
 
-        const marginConfig = {
+        const config  = {
+            displayHeaderFooter: false,
+            landscape: false,
+            footerTemplate: "",
+            headerTemplate: "",
+            path: "",
+            printBackground: true,
             margin: {
                 top: 50, left: 250, bottom: 10, right: 50
             }
@@ -24,13 +30,13 @@ describe('Testing pdf class', () => {
 
         pdf.setMargin(50, 50, 10, 250);
 
-        expect(pdf.getConfig()).toEqual(marginConfig);
+        expect(pdf.getConfig()).toEqual(config);
 
 
         pdf.setToLandScape()
 
         expect(pdf.getConfig()).toEqual(Object.assign({},
-            marginConfig, { landscape: true },
+            config, { landscape: true },
         ))
     });
 
