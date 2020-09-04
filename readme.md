@@ -60,7 +60,7 @@ historia type=url http://example.com output=jpeg
 
 #### !Important 
 
-when working with pdf add below css to make the page look identicalys
+when working with pdf add below css to make the page look identical
 
 ```css
 
@@ -89,7 +89,8 @@ npm run doc
 
 
 ### TO FIX
-    - Find solution for rendering pages with lazy image loading (example: medium);
+
+- Find solution for rendering pages with lazy image loading (example: medium);
     
 ## Contributors
 
@@ -97,4 +98,4 @@ Author [Anže Matelič](https://github.com/amatelic)
 
 ## License
 
-  [MIT](LICENSE)
+[MIT](LICENSE)
