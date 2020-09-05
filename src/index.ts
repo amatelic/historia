@@ -39,6 +39,6 @@ if (require.main === module) {
                 process.exit(1);
             });
     })()
-} else {
-    module.exports = HistoriaFactory;
 }
+
+export default HistoriaFactory;

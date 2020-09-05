@@ -44,7 +44,5 @@ if (require.main === module) {
         });
     }))();
 }
-else {
-    module.exports = HistoriaFactory;
-}
+exports.default = HistoriaFactory;
 //# sourceMappingURL=index.js.map
