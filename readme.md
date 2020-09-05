@@ -63,12 +63,10 @@ historia type=url http://example.com output=jpeg
 when working with pdf add below css to make the page look identical
 
 ```css
-
 html {
       -webkit-print-color-adjust: exact;
-
 }
-
+```
 ## Tests
 
 ```
@@ -86,7 +84,6 @@ npm run doc
  - [ x ] Add support for generating pdf
  - [ x ] Add support for generating image 
  - [   ] Add support for generating html 
-
 
 ### TO FIX
 
