@@ -88,6 +88,8 @@ npm run doc
 ### TO FIX
 
 - Find solution for rendering pages with lazy image loading (example: medium);
+
+## Test
     
 ## Contributors
 
